@@ -22,3 +22,5 @@ secrets.yaml
 .terraform
 terraform.*
 .terraform.*.*
+*.zip
+tfplan

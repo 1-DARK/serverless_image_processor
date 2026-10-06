@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo " Destroying Image Processor Application..."
+echo "Destroying Image Processor Application..."
 
 # Get the directory where the script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -23,7 +23,7 @@ FRONTEND_BUCKET=$(terraform state show 'aws_s3_bucket.frontend_bucket' 2>/dev/nu
 # Function to empty versioned S3 bucket
 empty_versioned_bucket() {
     local bucket=$1
-    echo "Emptying bucket: $bucket (including all versions)..."
+    echo "🗑️  Emptying bucket: $bucket (including all versions)..."
     
     # Delete all object versions
     aws s3api list-object-versions --bucket "$bucket" --output json | \
@@ -43,7 +43,7 @@ empty_versioned_bucket() {
         fi
     done
     
-    echo " Bucket $bucket emptied"
+    echo "Bucket $bucket emptied"
 }
 
 # Empty S3 buckets
@@ -60,7 +60,7 @@ if [ ! -z "$FRONTEND_BUCKET" ]; then
 fi
 
 # Destroy Terraform resources
-echo " Destroying Terraform resources..."
+echo "Destroying Terraform resources..."
 terraform destroy -auto-approve
 
-echo " All resources destroyed successfully!"
+echo "All resources destroyed successfully!"
